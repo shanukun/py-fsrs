@@ -44,17 +44,28 @@ class Card:
     state: State
     last_review: datetime
 
-    def __init__(self) -> None:
-        self.due = datetime.utcnow()
-        self.stability = 0
-        self.difficulty = 0
-        self.elapsed_days = 0
-        self.scheduled_days = 0
-        self.reps = 0
-        self.lapses = 0
-        self.state = State.New
+    def __init__(
+        self,
+        due=datetime.utcnow(),
+        stability=0,
+        difficulty=0,
+        elapsed_days=0,
+        scheduled_days=0,
+        reps=0,
+        lapses=0,
+        state=State.New,
+        last_review=datetime.utcnow(),
+    ) -> None:
+        self.due = due
+        self.stability = stability
+        self.difficulty = difficulty
+        self.elapsed_days = elapsed_days
+        self.scheduled_days = scheduled_days
+        self.reps = reps
+        self.lapses = lapses
+        self.state = state
+        self.last_review = last_review
 
-    
     def get_retrievability(self, now: datetime) -> Optional[float]:
         if self.state == State.Review:
             elapsed_days = max(0, (now - self.last_review).days)
